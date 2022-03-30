@@ -1,0 +1,173 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: fio-1
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node_name
+            operator: In
+            values:
+            - node01            
+  # Run on a storage node so that the nexus is local to the app
+  nodeSelector:
+    openebs.io/engine: mayastor
+  volumes:
+    - name: ms-volume1
+      persistentVolumeClaim:
+        claimName: maya-pvc1
+        readOnly: false    
+    - name: ms-volume2
+      persistentVolumeClaim:
+        claimName: maya-pvc2
+        readOnly: false    
+    - name: ms-volume3
+      persistentVolumeClaim:
+        claimName: maya-pvc3
+        readOnly: false
+    - name: ms-volume4
+      persistentVolumeClaim:
+        claimName: maya-pvc4
+        readOnly: false
+    - name: ms-volume5
+      persistentVolumeClaim:
+        claimName: maya-pvc5
+        readOnly: false
+  containers:
+    - name: fio-1
+      image: mayadata/fio
+      imagePullPolicy: IfNotPresent
+      args:
+        - sleep
+        - "1000000"
+      volumeMounts:
+        - mountPath: "/volume1"
+          name: ms-volume1
+        - mountPath: "/volume2"
+          name: ms-volume2
+        - mountPath: "/volume3"
+          name: ms-volume3
+        - mountPath: "/volume4"
+          name: ms-volume4
+        - mountPath: "/volume5"
+          name: ms-volume5
+      #volumeDevices:
+      #  - devicePath: /dev/xvda
+      #    name: ms-volume
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: fio-2
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node_name
+            operator: In
+            values:
+            - node02   
+  # Run on a storage node so that the nexus is local to the app
+  nodeSelector:
+    openebs.io/engine: mayastor
+  volumes:
+    - name: ms-volume1
+      persistentVolumeClaim:
+        claimName: maya-pvc6
+        readOnly: false    
+    - name: ms-volume2
+      persistentVolumeClaim:
+        claimName: maya-pvc7
+        readOnly: false    
+    - name: ms-volume3
+      persistentVolumeClaim:
+        claimName: maya-pvc8
+        readOnly: false
+    - name: ms-volume4
+      persistentVolumeClaim:
+        claimName: maya-pvc9
+        readOnly: false
+    - name: ms-volume5
+      persistentVolumeClaim:
+        claimName: maya-pvc10
+        readOnly: false
+  containers:
+    - name: fio-2
+      image: mayadata/fio
+      imagePullPolicy: IfNotPresent
+      args:
+        - sleep
+        - "1000000"
+      volumeMounts:
+        - mountPath: "/volume1"
+          name: ms-volume1
+        - mountPath: "/volume2"
+          name: ms-volume2
+        - mountPath: "/volume3"
+          name: ms-volume3
+        - mountPath: "/volume4"
+          name: ms-volume4
+        - mountPath: "/volume5"
+          name: ms-volume5
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: fio-3
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node_name
+            operator: In
+            values:
+            - node03    
+  # Run on a storage node so that the nexus is local to the app
+  nodeSelector:
+    openebs.io/engine: mayastor
+  volumes:
+    - name: ms-volume1
+      persistentVolumeClaim:
+        claimName: maya-pvc11
+        readOnly: false    
+    - name: ms-volume2
+      persistentVolumeClaim:
+        claimName: maya-pvc12
+        readOnly: false    
+    - name: ms-volume3
+      persistentVolumeClaim:
+        claimName: maya-pvc13
+        readOnly: false
+    - name: ms-volume4
+      persistentVolumeClaim:
+        claimName: maya-pvc14
+        readOnly: false
+    - name: ms-volume5
+      persistentVolumeClaim:
+        claimName: maya-pvc15
+        readOnly: false
+  containers:
+    - name: fio-3
+      image: mayadata/fio
+      imagePullPolicy: IfNotPresent
+      args:
+        - sleep
+        - "1000000"
+      volumeMounts:
+        - mountPath: "/volume1"
+          name: ms-volume1
+        - mountPath: "/volume2"
+          name: ms-volume2
+        - mountPath: "/volume3"
+          name: ms-volume3
+        - mountPath: "/volume4"
+          name: ms-volume4
+        - mountPath: "/volume5"
+          name: ms-volume5
